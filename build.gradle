@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'net.dv8tion:JDA:2.1.2_322'
+    compile "commons-io:commons-io:+"
+    compile 'org.apache.commons:commons-configuration2:2.0'
+}
+
+repositories {
+    jcenter()
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'main.YttBot'
+    }
+
+    from { 
+        configurations.compile.collect {
+            dependency ->
+            if (dependency.directory) {
+                return dependency
+            } else {
+                return zipTree(dependency)
+            }
+        }
+    }
+    with jar
+}

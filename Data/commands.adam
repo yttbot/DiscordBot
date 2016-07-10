@@ -1,0 +1,7 @@
+/tag: base for tags, use /tag for more info
+/online: counts the amount of online players currently
+/members: will list total amount of members (/members list will show all of them)
+/list: will list all currently online members in their roles
+/status: if online, bot will display a green check mark
+/clear: clears a certain amount of previous messages in the textchannel (10 default) (Must be administrator)
+/help: shows list of commands
