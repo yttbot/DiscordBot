@@ -7,7 +7,7 @@ import net.dv8tion.jda.Permission;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.utils.PermissionUtil;
 
-public class TagHandler {
+public abstract class TagHandler {
 	public static void passTag(MessageReceivedEvent event) throws IOException {
 		String msg = event.getMessage().getContent();
 		String[] strippedContent = msg.split(" ");

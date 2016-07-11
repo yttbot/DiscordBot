@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile 'net.dv8tion:JDA:2.1.2_322'
+    compile 'net.dv8tion:JDA:2.1.3_327'
     compile "commons-io:commons-io:+"
     compile 'org.apache.commons:commons-configuration2:2.0'
 }

@@ -1,7 +1,12 @@
 /tag: base for tags, use /tag for more info
+/music: /music nowplaying or /music reset if the player isn't playing
+/helpop: sends a message to discord staff members (abuse will result in a ban)
 /online: counts the amount of online players currently
 /members: will list total amount of members (/members list will show all of them)
 /list: will list all currently online members in their roles
 /status: if online, bot will display a green check mark
 /clear: clears a certain amount of previous messages in the textchannel (10 default) (Must be administrator)
+/todo: base command for administrators to view server todos
+/ban: Ban a user by using /ban @mention
+/kick: Kick a user by using /kick @mention
 /help: shows list of commands

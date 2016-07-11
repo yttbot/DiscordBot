@@ -21,11 +21,16 @@ public class Commands {
 		commands.createNewFile();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(commands));
 		bw.write("/tag: base for tags, use /tag for more info\n");
+		bw.write("/music: /music nowplaying or /music reset if the player isn't playing\n");
+		bw.write("/helpop: sends a message to discord staff members (abuse will result in a ban)\n");
 		bw.write("/online: counts the amount of online players currently\n");
 		bw.write("/members: will list total amount of members (/members list will show all of them)\n");
 		bw.write("/list: will list all currently online members in their roles\n");
 		bw.write("/status: if online, bot will display a green check mark\n");
 		bw.write("/clear: clears a certain amount of previous messages in the textchannel (10 default) (Must be administrator)\n");
+		bw.write("/todo: base command for administrators to view server todos\n");
+		bw.write("/ban: Ban a user by using /ban @mention\n");
+		bw.write("/kick: Kick a user by using /kick @mention\n");
 		bw.write("/help: shows list of commands\n");
 		bw.flush();
 		bw.close();

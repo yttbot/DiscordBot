@@ -7,22 +7,24 @@ import javax.security.auth.login.LoginException;
 
 import FileStorage.Commands;
 import FileStorage.GameText;
+import FileStorage.Mutes;
 import FileStorage.Tags;
+import FileStorage.Todo;
 import GuildEvents.GuildMemberRoleUpdate;
 import Messages.MessageEvent;
 import net.dv8tion.jda.JDA;
 import net.dv8tion.jda.JDABuilder;
+import net.dv8tion.jda.hooks.AnnotatedEventManager;
 import net.dv8tion.jda.hooks.ListenerAdapter;
 import net.dv8tion.jda.managers.AccountManager;
 
 public class YttBot extends ListenerAdapter {
 	public static JDA jda = null;
 	public static AccountManager acc = null;
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws LoginException, IllegalArgumentException, InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
 		jda = new JDABuilder()
-		.setBotToken("MTkwNzYzNzcyMDI0MDYxOTUy.CjweGw.a1y0owE-JMRoZBXlBbWB2n7V9wo")
-		.useAnnotatedEventManager(true)
+		.setBotToken("bottoken")
+		.setEventManager(new AnnotatedEventManager())
 		.buildBlocking();
 		
 		jda.addEventListener(new MessageEvent());
@@ -33,5 +35,9 @@ public class YttBot extends ListenerAdapter {
 		GameText.setup();
 		Tags.setup();
 		Commands.setup();
+		Todo.setup();
+		Mutes.setup();
+		
+
 	}
 }
