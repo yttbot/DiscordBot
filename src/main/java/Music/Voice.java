@@ -49,6 +49,7 @@ public abstract class Voice {
 
 			playPersonalPlaylist(ch);
 		}
+		isSetup = true;
 	}
 
 	public static void nowPlaying(TextChannel ch) {
@@ -76,12 +77,9 @@ public abstract class Voice {
 	}
 	
 	public static void playPersonalPlaylist(TextChannel ch) {
-		Playlist playlist = Playlist.getPlaylist("https://soundcloud.com/adam-ratzman/sets/songs");
+		Playlist playlist = Playlist.getPlaylist("https://www.youtube.com/playlist?list=PLiIpa3yPv-Q5kWtOzCLs2GxnLsI6nwSxW");
 		List<AudioSource> sources = new LinkedList<AudioSource>(playlist.getSources());
 
-
-		if (sources.size() > 1)
-		{
 			ch.sendMessage("Found a playlist with **" + sources.size() + "** entries.\n" +
 					"Proceeding to gather information and queue sources. This may take some time...");
 			final MusicPlayer fPlayer = player;
@@ -149,5 +147,4 @@ public abstract class Voice {
 			};
 			thread.start();
 		}
-	}
 }

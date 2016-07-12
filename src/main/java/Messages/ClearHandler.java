@@ -1,6 +1,11 @@
 package Messages;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import Main.YttBot;
 import net.dv8tion.jda.MessageHistory;
@@ -23,14 +28,7 @@ public abstract class ClearHandler {
 			MessageHistory mh = new MessageHistory(event.getChannel());
 			if (msg.equalsIgnoreCase("/clear")) {
 				List<Message> ml = mh.retrieve(10);
-				for (Message message : ml) {
-					try {
-						message.deleteMessage();		
-					}
-					catch (Exception x) {
-						event.getChannel().sendMessage("I don't have permission to delete messages here .-.");
-					}
-				}
+				deleteMessagesAsync(ml);
 				event.getTextChannel().sendMessage("Successfully deleted the last 10 messages");
 			}
 			else {
@@ -38,9 +36,7 @@ public abstract class ClearHandler {
 				try {
 					int mamt = Integer.parseInt(amt);
 					List<Message> ml = mh.retrieve(mamt);
-					for (Message message : ml) {
-						message.deleteMessage();
-					}
+					deleteMessagesAsync(ml);
 					event.getTextChannel().sendMessage("Successfully deleted the last " + mamt + " messages");	
 				}
 				catch (NumberFormatException ex) {
@@ -49,4 +45,36 @@ public abstract class ClearHandler {
 			}
 		}
 	}
+	public static void deleteMessagesAsync(List<Message> ml) {
+		int timesToRun = (int) Math.ceil(ml.size() / 5);
+		AtomicInteger i = new AtomicInteger(1); 
+		Runnable rn = new Runnable() {
+			public void run() {
+				if (i.get() == (timesToRun - 1)) {
+					for (Message m : ml) {
+						m.deleteMessage();
+					}
+
+				}
+				else {
+					for (int i = 0; i <= 5; i++) {
+						ml.get(0).deleteMessage();
+					}
+				}
+				i.incrementAndGet();
+			}
+		};
+
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+		executor.scheduleAtFixedRate(rn, 0, 1, TimeUnit.SECONDS);
+
+		final ScheduledFuture<?> rnHandle = executor.scheduleAtFixedRate(rn, 0, 1, TimeUnit.SECONDS);
+		executor.schedule(
+				new Runnable() {
+					
+					public void run() { rnHandle.cancel(true); }
+				}, timesToRun + 1, TimeUnit.SECONDS);
+
+	}
+
 }
