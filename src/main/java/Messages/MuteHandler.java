@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import FileStorage.Mutes;
 import net.dv8tion.jda.Permission;
+import net.dv8tion.jda.entities.Message;
+import net.dv8tion.jda.entities.TextChannel;
 import net.dv8tion.jda.entities.User;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.utils.PermissionUtil;
@@ -52,12 +54,22 @@ public abstract class MuteHandler {
 					String mention = msg.replace("/mute add ", "");
 					boolean isAUser = false;
 					for (User u : event.getGuild().getUsers()) {
-						if (("@" + u.getUsername()).equalsIgnoreCase(mention)) isAUser = true;
-					}
+						if (event.getGuild().getNicknameForUser(u) != null) {
+							if (("@" + event.getGuild().getNicknameForUser(u)).equalsIgnoreCase(mention)) isAUser = true;
+						}
+						else {
+							if (("@" + u.getUsername()).equalsIgnoreCase(mention)) isAUser = true;
+						}					}
 					if (!isAUser || mention.equalsIgnoreCase("@YttBot")) event.getChannel().sendMessage("The user you're trying to mute isn't real! Try again :P");
 					else {
 						Mutes.addmutes(mention);
-						event.getChannel().sendMessage("Muted " + mention);
+						Message m = event.getChannel().sendMessage("Muted " + mention);
+						for (TextChannel tc : event.getGuild().getTextChannels()) {
+							if (tc.getName().contains("staff")) {
+								tc.pinMessageById(m.getId());
+							}
+						}
+
 					}
 				}
 				else if (msg.startsWith("/mute remove")) {
@@ -68,12 +80,24 @@ public abstract class MuteHandler {
 					String mention = msg.replace("/mute remove ", "");
 					boolean isAUser = false;
 					for (User u : event.getGuild().getUsers()) {
-						if (("@" + u.getUsername()).equalsIgnoreCase(mention)) isAUser = true;
+						if (event.getGuild().getNicknameForUser(u) != null) {
+							if (("@" + event.getGuild().getNicknameForUser(u)).equalsIgnoreCase(mention)) isAUser = true;
+						}
+						else {
+							if (("@" + u.getUsername()).equalsIgnoreCase(mention)) isAUser = true;
+						}
 					}
 					if (!isAUser) event.getChannel().sendMessage("The user you're trying to unmute isn't real! Try again :P");
 					else {
 						Mutes.removeMute(mention);
-						event.getChannel().sendMessage("Unmuted " + mention);
+						Message m = event.getChannel().sendMessage("Unmuted " + mention);
+
+						for (TextChannel tc : event.getGuild().getTextChannels()) {
+							if (tc.getName().contains("staff")) {
+								tc.pinMessageById(m.getId());
+							}
+						}
+
 					}
 				}
 			}

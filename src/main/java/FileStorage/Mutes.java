@@ -16,7 +16,7 @@ import java.util.List;
 import net.dv8tion.jda.entities.User;
 
 public class Mutes {	
-	public static File mutes = new File("Data/mutes.adam");
+	public static File mutes = new File("../Data/mutes.adam");
 	public static String format = ": ";
 	public static void setup() throws IOException {
 		if (!mutes.exists()) {
@@ -40,7 +40,7 @@ public class Mutes {
 	public static boolean removeMute(String muted) throws IOException {
 		boolean found = false;
 		File inputFile = mutes;
-		File tempFile = new File("Data/mutesTemp.adam");
+		File tempFile = new File("../Data/mutesTemp.adam");
 
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));

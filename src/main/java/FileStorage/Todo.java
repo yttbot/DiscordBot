@@ -16,7 +16,7 @@ import java.util.List;
 import net.dv8tion.jda.entities.User;
 
 public class Todo {	
-	public static File todo = new File("Data/todo.adam");
+	public static File todo = new File("../Data/todo.adam");
 	public static String format = ": ";
 	public static void setup() throws IOException {
 		if (!todo.exists()) {
@@ -40,7 +40,7 @@ public class Todo {
 	public static boolean removeTodo(int todoNumber) throws IOException {
 		boolean found = false;
 		File inputFile = todo;
-		File tempFile = new File("Data/todosTemp.adam");
+		File tempFile = new File("../Data/todosTemp.adam");
 
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));

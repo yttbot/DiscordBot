@@ -17,7 +17,7 @@ import java.util.List;
 import net.dv8tion.jda.entities.User;
 
 public class Tags {
-	public static File tags = new File("Data/tags.adam");
+	public static File tags = new File("../Data/tags.adam");
 	public static String format = ": ";
 	public static void setup() throws IOException {
 		if (!tags.exists()) {
@@ -45,7 +45,7 @@ public class Tags {
 	public static boolean removeTag(String tagName) throws IOException {
 		boolean found = false;
 		File inputFile = tags;
-		File tempFile = new File("Data/tagsTemp.adam");
+		File tempFile = new File("../Data/tagsTemp.adam");
 
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));

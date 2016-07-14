@@ -50,11 +50,11 @@ public abstract class ClearHandler {
 		AtomicInteger i = new AtomicInteger(1); 
 		Runnable rn = new Runnable() {
 			public void run() {
-				if (i.get() == (timesToRun - 1)) {
+			while (i.get() < timesToRun)
+				if (i.get() == (timesToRun - 0)) {
 					for (Message m : ml) {
 						m.deleteMessage();
 					}
-
 				}
 				else {
 					for (int i = 0; i <= 5; i++) {
@@ -68,12 +68,12 @@ public abstract class ClearHandler {
 		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 		executor.scheduleAtFixedRate(rn, 0, 1, TimeUnit.SECONDS);
 
-		final ScheduledFuture<?> rnHandle = executor.scheduleAtFixedRate(rn, 0, 1, TimeUnit.SECONDS);
+		final ScheduledFuture<?> rnHandle = executor.scheduleAtFixedRate(rn, 0, timesToRun, TimeUnit.SECONDS);
 		executor.schedule(
 				new Runnable() {
 					
-					public void run() { rnHandle.cancel(true); }
-				}, timesToRun + 1, TimeUnit.SECONDS);
+					public void run() { rnHandle.cancel(true); executor.shutdown(); }
+				}, timesToRun, TimeUnit.MINUTES);
 
 	}
 

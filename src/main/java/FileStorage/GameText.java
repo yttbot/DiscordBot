@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import Main.YttBot;
 
 public class GameText {
-	static File games = new File("Data/games.adam");
+	static File games = new File("../Data/games.adam");
 	public static void setup() throws IOException {
 		if (games.exists()) {
 			games.delete();

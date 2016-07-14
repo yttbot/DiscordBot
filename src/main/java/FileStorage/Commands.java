@@ -13,7 +13,7 @@ import Main.YttBot;
 import net.dv8tion.jda.entities.User;
 
 public class Commands {
-	static File commands = new File("Data/commands.adam");
+	static File commands = new File("../Data/commands.adam");
 	public static void setup() throws IOException {
 		if (commands.exists()) {
 			commands.delete();
@@ -21,7 +21,7 @@ public class Commands {
 		commands.createNewFile();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(commands));
 		bw.write("/tag: base for tags, use /tag for more info\n");
-		bw.write("/music: /music nowplaying or /music reset if the player isn't playing\n");
+		bw.write("/music: base for music, use this to get music help!\n");
 		bw.write("/helpop: sends a message to discord staff members (abuse will result in a ban)\n");
 		bw.write("/online: counts the amount of online players currently\n");
 		bw.write("/members: will list total amount of members (/members list will show all of them)\n");
@@ -31,6 +31,7 @@ public class Commands {
 		bw.write("/todo: base command for administrators to view server todos\n");
 		bw.write("/ban: Ban a user by using /ban @mention\n");
 		bw.write("/kick: Kick a user by using /kick @mention\n");
+		bw.write("/realname @[user] (shows a user's real name if they have a nickname)\n");
 		bw.write("/help: shows list of commands\n");
 		bw.flush();
 		bw.close();

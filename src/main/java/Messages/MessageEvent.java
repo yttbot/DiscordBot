@@ -4,10 +4,9 @@ import java.io.IOException;
 
 import FileStorage.Commands;
 import FileStorage.Mutes;
-import Main.YttBot;
+import Music.MusicHandler;
 import Music.Voice;
 import net.dv8tion.jda.OnlineStatus;
-import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.entities.PrivateChannel;
 import net.dv8tion.jda.entities.User;
 import net.dv8tion.jda.events.message.MessageReceivedEvent;
@@ -91,16 +90,22 @@ public class MessageEvent {
 			else if (args[0].equalsIgnoreCase("/helpop") && !event.getAuthor().isBot()) {
 				event.getAuthor().getPrivateChannel().sendMessage("/helpop may only be used in a private channel with me!");
 			}
-			else if (msg.equalsIgnoreCase("/music")) {
-				event.getAuthor().getPrivateChannel().sendMessage("```Music Commands:\n/music nowplaying (current song)\n/music reset (resets player [don't use!])```");
+			else if (args[0].equalsIgnoreCase("/music")) {
+				MusicHandler.musicPass(event, msg);
 			}
-			else if (msg.equalsIgnoreCase("/music reset")) {
-				event.getChannel().sendMessage("Reset music player!");
-				Voice.reset();
-			}	
-			else if (msg.equalsIgnoreCase("/music nowplaying")) {
-				Voice.nowPlaying(event.getGuild().getTextChannels().get(event.getGuild().getTextChannels().size() - 1));
+			else if (args[0].equalsIgnoreCase("/realname")) {
+				if (msg.equalsIgnoreCase("/realname") || msg.equalsIgnoreCase("/realname ")) event.getChannel().sendMessage("Invalid args");
+				else {
+					if (event.getMessage().getMentionedUsers().size() == 0) {
+						event.getChannel().sendMessage("No user was mentioned!");
+					}
+					else {
+						User u = event.getMessage().getMentionedUsers().get(0);
+						event.getChannel().sendMessage("This user's name is " + u.getUsername());
+					}					
+				}
 			}
+
 		}
 
 	}
