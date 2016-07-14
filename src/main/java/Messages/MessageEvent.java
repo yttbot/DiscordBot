@@ -6,6 +6,7 @@ import FileStorage.Commands;
 import FileStorage.Mutes;
 import Music.MusicHandler;
 import Music.Voice;
+import Punishments.Banning;
 import net.dv8tion.jda.OnlineStatus;
 import net.dv8tion.jda.entities.PrivateChannel;
 import net.dv8tion.jda.entities.User;
@@ -105,7 +106,18 @@ public class MessageEvent {
 					}					
 				}
 			}
-
+			else if (args[0].equalsIgnoreCase("/ban")) {
+				if (msg.equalsIgnoreCase("/ban") || msg.equalsIgnoreCase("/ban ")) event.getChannel().sendMessage("Invalid usage! use /ban @user");
+				else {
+					if (msg.startsWith("/ban remove")) {
+						if (msg.equalsIgnoreCase("/ban remove") || msg.equalsIgnoreCase("/ban remove ")) event.getChannel().sendMessage("Invalid usage! use /ban remove @user");
+						else Banning.passUnban(event, event.getMessage());
+					}
+					else Banning.passBan(event, event.getMessage());
+				
+				}
+					
+			}
 		}
 
 	}

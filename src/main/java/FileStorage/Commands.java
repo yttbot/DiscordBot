@@ -31,7 +31,8 @@ public class Commands {
 		bw.write("/todo: base command for administrators to view server todos\n");
 		bw.write("/ban: Ban a user by using /ban @mention\n");
 		bw.write("/kick: Kick a user by using /kick @mention\n");
-		bw.write("/realname @[user] (shows a user's real name if they have a nickname)\n");
+		bw.write("/realname @[user]: (shows a user's real name if they have a nickname)\n");
+		bw.write("/ban @[user]: permanently bans a user\n");
 		bw.write("/help: shows list of commands\n");
 		bw.flush();
 		bw.close();
